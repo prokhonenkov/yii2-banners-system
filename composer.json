@@ -19,8 +19,7 @@
       "php": ">=7.1",
       "yiisoft/yii2": "~2.0.0",
       "2amigos/yii2-ckeditor-widget" : "~2.1",
-      "relbraun/yii2repeater": "^1.0",
-      "prokhonenkov/yii2-banners-system": "dev-master"
+      "relbraun/yii2repeater": "^1.0"
     },
     "extra": {
       "bootstrap": "prokhonenkov\\bannerssystem\\Bootstrap"
