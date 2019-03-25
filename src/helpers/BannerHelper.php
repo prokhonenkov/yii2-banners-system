@@ -16,6 +16,7 @@ use prokhonenkov\bannerssystem\models\Zone;
 use prokhonenkov\bannerssystem\sources\Html5;
 use prokhonenkov\bannerssystem\sources\Image;
 use yii\helpers\FileHelper;
+use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 class BannerHelper
@@ -135,12 +136,15 @@ class BannerHelper
 	{
 		$fileInstance = current(UploadedFile::getInstancesByName('file'));
 		if (!$fileInstance instanceof UploadedFile) {
-			return null;
+			throw new \Exception(\Yii::t('banners-system', 'Failed to upload file.'));
 		}
 
 		$path  = self::uplodFile($fileInstance, $uniqKey);
 
 		$bannerZone = Zone::findOne($zoneId);
+		if(!$bannerZone) {
+			throw new NotFoundHttpException(\Yii::t('banners-system', 'Banner area not found.'));
+		}
 
 		return self::getUploadHtml(
 			$path,

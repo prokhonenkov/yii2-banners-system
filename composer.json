@@ -19,6 +19,7 @@
       "php": ">=7.1",
       "yiisoft/yii2": "~2.0.0",
       "2amigos/yii2-ckeditor-widget" : "~2.1",
+      "2amigos/yii2-grid-view-library": "~1.0",
       "relbraun/yii2repeater": "^1.0"
     },
     "extra": {

@@ -125,7 +125,7 @@ class BannerController extends BannersSystemController
 		try {
 			return [
 				'success' => true,
-				'html' => BannerHelper::upload($zoneId, $uniqKey)
+				'html' => BannerHelper::upload((int)$zoneId, $uniqKey)
 			];
 
 		} catch (\Exception $e) {

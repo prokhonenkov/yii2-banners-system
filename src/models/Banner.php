@@ -51,7 +51,7 @@ class Banner extends \yii\db\ActiveRecord implements BannerInterface
     public function rules()
     {
         return [
-            [['title', 'banner_dir', 'zone_id', 'html'], 'required'],
+            [['title', 'banner_dir', 'zone_id', 'html', 'zone_id'], 'required'],
             [['html'], 'string'],
             [['is_active', 'zone_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
