@@ -1,0 +1,32 @@
+{
+    "name": "prokhonenkov/yii2-banners-system",
+    "description": "The system of banners",
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "authors": [
+      {
+        "name": "Vitaliy Prokhonenkov",
+        "email": "prokhonenkov@gmail.com"
+      }
+    ],
+    "keywords": [
+      "yii2",
+      "extension",
+      "banners"
+    ],
+    "require": {
+      "php": ">=7.1",
+      "yiisoft/yii2": "~2.0.0",
+      "2amigos/yii2-ckeditor-widget" : "~2.1",
+      "2amigos/yii2-grid-view-library": "~1.0",
+      "relbraun/yii2repeater": "^1.0"
+    },
+    "extra": {
+      "bootstrap": "prokhonenkov\\bannerssystem\\Bootstrap"
+    },
+    "autoload": {
+      "psr-4": {
+        "prokhonenkov\\bannerssystem\\": "src"
+      }
+    }
+}
