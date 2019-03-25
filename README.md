@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require prokhonenkov/yii2-bannerssystem
+php composer.phar require prokhonenkov/yii2-banners-system
 ```
 
 or add
 
 ```
-"prokhonenkov/yii2-bannerssystem": "*"
+"prokhonenkov/yii2-banners-system": "*"
 ```
 
 to the require section of your `composer.json` file.
