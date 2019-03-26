@@ -71,19 +71,17 @@ return [
             
             'layout' => '@alias/views/layouts/main',
             'views' => [
-                 [
-                    'banner' => [
-                        'index' => '@path/index',
-                        'update' => '@path/update',
-                        'create' => '@path/create',
-                        'view' => '@path/view',
-                    ],
-                    'area' => [
-                        'index' => '@path/index',
-                        'update' => '@path/update',
-                        'create' => '@path/create',
-                        'view' => '@path/view',
-                    ]
+                'banner' => [
+                    'index' => '@path/index',
+                    'update' => '@path/update',
+                    'create' => '@path/create',
+                    'view' => '@path/view',
+                ],
+                'area' => [
+                    'index' => '@path/index',
+                    'update' => '@path/update',
+                    'create' => '@path/create',
+                    'view' => '@path/view',
                 ]
             ],
         ],
