@@ -72,17 +72,4 @@ class BannersSystemController extends Controller
 
 		return $this->redirect(['index']);
 	}
-
-	/**
-	 * Displays a single Zone model.
-	 * @param integer $id
-	 * @return mixed
-	 * @throws NotFoundHttpException if the model cannot be found
-	 */
-	public function actionView($id)
-	{
-		return $this->render('view', [
-			'model' => $this->findModel($id),
-		]);
-	}
 }

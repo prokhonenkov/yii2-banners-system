@@ -29,13 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'width',
             'height',
-            [
-                'attribute' => 'is_active',
-                'value' => function($model) {
-                    return BannerHelper::getStatuses()[$model->is_active];
-                },
-                'filter' => BannerHelper::getStatuses()
-            ],
+			[
+				'class' => 'dosamigos\grid\columns\ToggleColumn',
+				'attribute' => 'is_active',
+				'onValue' => 1,
+				'onLabel' => Yii::t('banners-system', 'Active'),
+				'offLabel' => Yii::t('banners-system', 'Inactive'),
+				'contentOptions' => ['class' => 'text-center'],
+				'filter' => ['1' => Yii::t('banners-system', 'Active'), '0' => Yii::t('banners-system', 'Inactive')],
+			],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
