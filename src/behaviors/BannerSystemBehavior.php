@@ -22,6 +22,9 @@ class BannerSystemBehavior extends Behavior
 {
 	public function events()
 	{
+		if(\Yii::$app->request->isAjax) {
+			return [];
+		}
 		return [
 			Controller::EVENT_BEFORE_ACTION => 'beforeAction',
 		];
