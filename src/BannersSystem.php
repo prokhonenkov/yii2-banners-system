@@ -62,10 +62,12 @@ class BannersSystem extends \yii\base\Module
 
 	public function initRepeater()
 	{
-		\Yii::$app->getAssetManager()->bundles = [
-			'relbraun\yii2repeater\RepeaterAsset' => [
-				'basePath' => '/'
-			]
-		];
+		if (\Yii::$app instanceof \yii\web\Application) {
+			\Yii::$app->getAssetManager()->bundles = [
+				'relbraun\yii2repeater\RepeaterAsset' => [
+					'basePath' => '/'
+				]
+			];
+		}
 	}
 }
