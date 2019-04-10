@@ -15,6 +15,7 @@ use prokhonenkov\bannerssystem\helpers\BannerHelper;
 use prokhonenkov\bannerssystem\models\Banner;
 use yii\base\Behavior;
 use yii\helpers\Json;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\View;
 
@@ -47,11 +48,12 @@ class BannerSystemBehavior extends Behavior
 			$banners = BannerHelper::setupBunners(...$banners);
 
 			$json = Json::encode([
-				'banners' => $banners
+				'banners' => $banners,
+				'url' => Url::to(['/bannerssystem/banner/set-click'])
 			]);
 
 			$this->owner->getView()->registerJs('const bannerSystem = new BannerSystem(' . $json . ')');
-
+			//print_r($banners);exit;
 			Banner::setViews(array_map(function ($banner) {
 				return $banner['id'];
 			}, $banners));

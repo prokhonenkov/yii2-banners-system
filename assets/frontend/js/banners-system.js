@@ -1,6 +1,7 @@
 class BannerSystem {
     constructor(params) {
         this.banners = params.banners;
+        this.url = params.url;
         this.insertBanners();
         this.setViel();
     }
@@ -15,12 +16,13 @@ class BannerSystem {
                 .css('width', value.width)
                 .append(self.htmlDecode(value.html))
                 .click(function(){
-                    $.post( "/bannerssystem/banner/set-click", { id: value.id } );
-                    if(!value.redirectUrl) {
+                    $.post( self.url, { id: value.id } );
+                    if(value.redirectUrl) {
+                        const win = window.open('', 'target="blank"');
+                        win.location.assign(value.redirectUrl);
                         return false;
                     }
-                    const win = window.open('', 'target="blank"');
-                    win.location.assign(value.redirectUrl);
+
                 });
 
             if(value.redirectUrl) {

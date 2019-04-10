@@ -194,6 +194,7 @@ class BannerHelper
 						'height' => $banner->getZoneHeight(),
 						'redirectUrl' => $banner->getRedirectUrl(),
 					];
+					break;
 				}
 			}
 		}

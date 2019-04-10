@@ -9,7 +9,6 @@ use \prokhonenkov\bannerssystem\helpers\BannerHelper;
 /* @var $form yii\widgets\ActiveForm */
 
 
-
 ?>
 
 <div class="banner-form">
@@ -89,7 +88,11 @@ use \prokhonenkov\bannerssystem\helpers\BannerHelper;
                     <div class="col-md-12">
 						<?= $form->field($model, 'file', ['template' => '{input}{error}'])->fileInput() ?>
 
-						<?= Html::button(\Yii::t('banners-system', 'Apply'), ['id' => 'upload', 'class' => 'btn btn-block btn-primary'])?>
+						<?= Html::button(\Yii::t('banners-system', 'Apply'), [
+							'id' => 'upload',
+							'class' => 'btn btn-block btn-primary',
+							'data-url' => \yii\helpers\Url::to(['/bannerssystem/banner/upload'])
+						])?>
                     </div>
                 </div>
             </div>

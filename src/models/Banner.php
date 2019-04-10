@@ -122,6 +122,9 @@ class Banner extends \yii\db\ActiveRecord implements BannerInterface
 		}
 	}
 
+	/**
+	 * @return array
+	 */
 	public function behaviors()
 	{
 		return [
@@ -136,6 +139,10 @@ class Banner extends \yii\db\ActiveRecord implements BannerInterface
 		];
 	}
 
+	/**
+	 * @param int ...$ids
+	 * @return array
+	 */
 	public static function getBannersByZoneIds(int ...$ids): array
 	{
 		return (array)self::find()
@@ -147,10 +154,13 @@ class Banner extends \yii\db\ActiveRecord implements BannerInterface
 				'banners_zones.is_active' => BannerHelper::STATUS_ACTIVE,
 			])
 			->orderBy(['banners_statistics.created_at' => SORT_DESC])
-			->groupBy(['zone_id'])
 			->all();
 	}
 
+	/**
+	 * @param array $ids
+	 * @throws \yii\db\Exception
+	 */
 	public static function setViews(array $ids): void
 	{
 		$data = [];
@@ -169,6 +179,9 @@ class Banner extends \yii\db\ActiveRecord implements BannerInterface
 			)->execute();
 	}
 
+	/**
+	 * @param int $id
+	 */
 	public static function setClick(int $id): void
 	{
 		$stat = new Statistics();
@@ -186,31 +199,49 @@ class Banner extends \yii\db\ActiveRecord implements BannerInterface
 		return $this->id;
 	}
 
+	/**
+	 * @return mixed|PageUrl[]
+	 */
 	public function getUrls()
 	{
 		return $this->urlsList;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getZoneId(): int
 	{
 		return $this->zone_id;
 	}
 
+	/**
+	 * @return int|null
+	 */
 	public function getZoneHeight(): ?int
 	{
 		return $this->zone->height;
 	}
 
+	/**
+	 * @return int|null
+	 */
 	public function getZoneWidth(): ?int
 	{
 		return $this->zone->width;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getRedirectUrl(): string
 	{
 		return $this->link;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getHtml(): string
 	{
 		return $this->html;

@@ -3,11 +3,11 @@ jQuery(function($){
         var file_data = $('#banner-file').prop('files')[0];
         var form_data = new FormData();
         form_data.append('file', file_data);
-        console.log(form_data);
 
         $('body').css('cursor', 'wait');
         $.ajax({
-            url: '/bannerssystem/banner/upload?uniqKey='
+            url: $(this).data('url')
+                + '?uniqKey='
                 + $('#banner-banner_dir').val()
                 + '&zoneId='
                 + $('#banner-zone_id').val()
