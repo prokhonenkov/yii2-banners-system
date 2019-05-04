@@ -29,8 +29,8 @@ class Html5 extends SourceAbstract
 			'', [
 				'frameborder' => 0,
 				'scrolling' => 'no',
-				'width' => $width ? ($width . 'pz') : null,
-				'height' => $height ? ($height . 'pz') : null,
+				'width' => $width ? ($width . 'px') : null,
+				'height' => $height ? ($height . 'px') : null,
 				'src' => $this->url,
 				'class' => self::CSS_CLASS
 		]);

@@ -47,14 +47,15 @@ class BannerHelper
 
 		if($fileInfo['extension'] == 'zip') {
 			$path = self::getUploadDir() . DIRECTORY_SEPARATOR . $url;
+			$tmpPath = dirname($path) . DIRECTORY_SEPARATOR . 'tmp';
 
-			$extract = self::extractZip($path);
+			$extract = self::extractZip($path, $tmpPath);
 
 			if(!$extract) {
 				throw new \Exception(\Yii::t('banners-system', 'Unable to unpack archive'));
 			}
 
-			if(!file_exists(dirname($path) . DIRECTORY_SEPARATOR . self::HTML_INDEX_FILE)) {
+			if(!file_exists($tmpPath . DIRECTORY_SEPARATOR . self::HTML_INDEX_FILE)) {
 				throw new InvalidConfigException(\Yii::t('banners-system', 'The archive is missing index.html'));
 			}
 
@@ -77,14 +78,18 @@ class BannerHelper
 	}
 
 	/**
-	 * @param $path
+	 * @param string $path
+	 * @param string $tmpPath
 	 * @return bool
+	 * @throws \yii\base\ErrorException
 	 */
-	private static function extractZip($path)
+	private static function extractZip(string $path, string $tmpPath)
 	{
 		$zip = new \ZipArchive();
 		if ($zip->open($path) === true) {
+			FileHelper::removeDirectory($tmpPath);
 			$zip->extractTo(dirname($path));
+			$zip->extractTo($tmpPath);
 			$zip->close();
 			return true;
 		}
@@ -131,6 +136,7 @@ class BannerHelper
 	 * @param string $uniqKey
 	 * @return string
 	 * @throws InvalidConfigException
+	 * @throws \yii\base\Exception
 	 */
 	public static function upload(int $zoneId, string $uniqKey): string
 	{
@@ -143,7 +149,7 @@ class BannerHelper
 
 		$bannerZone = Zone::findOne($zoneId);
 		if(!$bannerZone) {
-			throw new NotFoundHttpException(\Yii::t('banners-system', 'Banner area not found.'));
+			throw new Exception(\Yii::t('banners-system', 'Banner area not found.'));
 		}
 
 		return self::getUploadHtml(
