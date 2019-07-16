@@ -10,6 +10,7 @@ namespace prokhonenkov\bannerssystem;
 
 use prokhonenkov\bannerssystem\helpers\BannerHelper;
 use prokhonenkov\bannerssystem\interfaces\BannerZoneInterface;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 class BannerZone implements BannerZoneInterface
@@ -30,7 +31,7 @@ class BannerZone implements BannerZoneInterface
 		return self::$instance;
 	}
 
-	public function setZoneById(int $id): string
+	public function setZoneById(int $id, array $options = []): string
 	{
 		$this->zoneIds[] = $id;
 
@@ -39,10 +40,10 @@ class BannerZone implements BannerZoneInterface
 			Html::tag('div', '', [
 				'class' => 'veil'
 			]),
-			[
+			ArrayHelper::merge($options, [
 				'id' => BannerHelper::PREFIX_BANNER_ZONE . $id,
-				'class' => 'banner-system hidden'
-			]);
+				'class' => 'banner-system hidden ' . ($options['class'] ?? null)
+			]));
 	}
 
 	public function getZoneIds(): array
