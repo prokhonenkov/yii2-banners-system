@@ -185,21 +185,34 @@ class BannerHelper
 	 */
 	public static function setupBunners(BannerInterface ...$banners)
 	{
-		$ids = $data = [];
+		$data = [];
 
 		$currentUrl = trim(\Yii::$app->request->absoluteUrl, '/');
+
 		foreach ($banners as $banner) {
 			foreach($banner->getUrls() as $url) {
 				if($url->getUrl() === $currentUrl || $url->isThrough() && strpos($currentUrl, $url->getUrl()) !== false) {
-					$ids[] = $banner->getId();
 
-					$data[self::PREFIX_BANNER_ZONE . $banner->getZoneId()] = [
+					$options = [
 						'id' => $banner->getId(),
-						'html' => str_replace(['<', '>'], ['&lt;', '&gt;'], $banner->getHtml()),
-						'width' => $banner->getZoneWidth(),
-						'height' => $banner->getZoneHeight(),
+						'html' => ($data[self::PREFIX_BANNER_ZONE . $banner->getZoneId()]['html'] ?? '') . str_replace(['<', '>'], ['&lt;', '&gt;'], $banner->getHtml()),
 						'redirectUrl' => $banner->getRedirectUrl(),
 					];
+
+					if(!$banner->zone->isRotate()) {
+						$bannerOptions = $data[self::PREFIX_BANNER_ZONE . $banner->getZoneId()]['bannerOptions']??[];
+						$bannerOptions[] = $options;
+					} else {
+						$bannerOptions = $options;
+					}
+
+					$data[self::PREFIX_BANNER_ZONE . $banner->getZoneId()] = [
+						'isRotate' => $banner->zone->isRotate(),
+						'width' => $banner->getZoneWidth(),
+						'bannerOptions' => $bannerOptions,
+						'height' => $banner->getZoneHeight(),
+					];
+
 					break;
 				}
 			}

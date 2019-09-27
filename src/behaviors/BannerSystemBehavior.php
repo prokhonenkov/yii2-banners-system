@@ -14,6 +14,7 @@ use prokhonenkov\bannerssystem\BannerZone;
 use prokhonenkov\bannerssystem\helpers\BannerHelper;
 use prokhonenkov\bannerssystem\models\Banner;
 use yii\base\Behavior;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -34,7 +35,7 @@ class BannerSystemBehavior extends Behavior
 
 	public function beforeAction()
 	{
-		$this->owner->getView()->registerJsFile('https://unpkg.com/babel-standalone@6/babel.min.js', ['position' => View::POS_END]);
+		$this->owner->getView()->registerJsFile('https://unpkg.com/babel-standalone@6.26.0/babel.min.js', ['position' => View::POS_END]);
 
 		FrontendAssetBundle::register($this->owner->getView());
 
@@ -55,7 +56,6 @@ class BannerSystemBehavior extends Behavior
 				'url' => Url::to(['/bannerssystem/banner/set-click'])
 			]);
 
-
 			$content = ob_get_clean();
 
 			ob_start();
@@ -67,9 +67,18 @@ class BannerSystemBehavior extends Behavior
 
 			//$this->owner->getView()->registerJs('const bannerSystem = new BannerSystem(' . $json . ')');
 
-			Banner::setViews(array_map(function ($banner) {
-				return $banner['id'];
-			}, $banners));
+			$ids = [];
+			foreach ($banners as $bannerZone) {
+				if(ArrayHelper::isAssociative($bannerZone['bannerOptions'])) {
+					$ids[] = $bannerZone['bannerOptions']['id'];
+				} else {
+					foreach ($bannerZone['bannerOptions'] as $banner) {
+						$ids[] = $banner['id'];
+					}
+				}
+			}
+
+			Banner::setViews($ids);
 		});
 	}
 }

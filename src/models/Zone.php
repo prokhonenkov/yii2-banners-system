@@ -12,11 +12,15 @@ use Yii;
  * @property int $width
  * @property int $height
  * @property int $is_active
+ * @property int $type
  *
  * @property Banners[] $banners
  */
 class Zone extends \yii\db\ActiveRecord
 {
+	const TYPE_ROTATE = 1;
+	const TYPE_LIST = 2;
+
     /**
      * {@inheritdoc}
      */
@@ -32,7 +36,7 @@ class Zone extends \yii\db\ActiveRecord
     {
         return [
 			[['title'], 'required'],
-            [['width', 'height', 'is_active'], 'integer'],
+            [['width', 'height', 'is_active', 'type'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -48,6 +52,7 @@ class Zone extends \yii\db\ActiveRecord
             'width' => \Yii::t('banners-system', 'Width'),
             'height' => \Yii::t('banners-system', 'Height'),
             'is_active' => \Yii::t('banners-system', 'Status'),
+            'type' => \Yii::t('banners-system', 'Type'),
         ];
     }
 
@@ -65,5 +70,18 @@ class Zone extends \yii\db\ActiveRecord
 			->select('title')
 			->indexBy('id')
 			->column();
+	}
+
+	public static function getTypes()
+	{
+		return [
+			self::TYPE_ROTATE => \Yii::t('banners-system', 'Rotate'),
+			self::TYPE_LIST => \Yii::t('banners-system', 'List')
+		];
+	}
+
+	public function isRotate()
+	{
+		return (int)$this->type === self::TYPE_ROTATE;
 	}
 }

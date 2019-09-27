@@ -8,27 +8,42 @@ class BannerSystem {
 
     insertBanners() {
         const self = this;
-
+        console.log(this.banners);
         $.each(this.banners, function(key, value) {
-            $('#' + key)
-                .removeClass('hidden')
+            const banerPlace = $('#' + key);
+
+            banerPlace.removeClass('hidden')
                 .css('height', value.height)
-                .css('width', value.width)
-                .append(self.htmlDecode(value.html))
-                .click(function(){
-                    $.post( self.url, { id: value.id } );
-                    if(value.redirectUrl) {
-                        const win = window.open('', 'target="blank"');
-                        win.location.assign(value.redirectUrl);
-                        return false;
-                    }
+                .css('width', value.width);
 
+            if($.isArray(value.bannerOptions)) {
+                $.each(value.bannerOptions, function(k, options) {
+                    let htmlObject = $(self.htmlDecode(options.html)).attr('id', '' + options.id)
+                        .css('cursor', options.redirectUrl ? 'pointer' : 'default');
+                    self.setClick(htmlObject, options);
+                    banerPlace.append(htmlObject);
                 });
-
-            if(value.redirectUrl) {
-                $('#' + key).css('cursor', 'pointer');
+                self.removeViel(banerPlace);
+            } else {
+                banerPlace
+                    .css('cursor', value.bannerOptions.redirectUrl ? 'pointer' : 'default')
+                    .append(self.htmlDecode(value.bannerOptions.html));
+                self.setClick(banerPlace, value.bannerOptions);
             }
         });
+    }
+
+    setClick(el, options) {
+        const self = this;
+
+        el.click(function(){
+            $.post( self.url, { id: options.id });
+            if(options.redirectUrl) {
+                const win = window.open('', 'target="blank"');
+                win.location.assign(options.redirectUrl);
+                return false;
+            }
+        })
     }
 
     htmlDecode(html) {
@@ -38,10 +53,15 @@ class BannerSystem {
     }
 
     setViel() {
+        const self = this;
         $('.banner-system').each(function(index, object){
             if(!$(object).find('.with-veil').length) {
-                $(object).find('.veil').remove();
+                self.removeViel(object);
             }
         });
+    }
+
+    removeViel(el) {
+        $(el).find('.veil').remove();
     }
 }

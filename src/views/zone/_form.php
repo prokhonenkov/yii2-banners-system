@@ -19,6 +19,8 @@ use \prokhonenkov\bannerssystem\helpers\BannerHelper;
 
     <?= $form->field($model, 'height')->textInput() ?>
 
+    <?= $form->field($model, 'type')->dropDownList($model::getTypes()) ?>
+
 	<?= $form->field($model, 'is_active')->dropDownList(BannerHelper::getStatuses()) ?>
 
     <div class="form-group">

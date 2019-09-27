@@ -29,6 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'width',
             'height',
+            [
+                'attribute' => 'type',
+                'value' => function(\prokhonenkov\bannerssystem\models\Zone $model) {
+                    return \yii\helpers\ArrayHelper::getValue($model::getTypes(), $model->type);
+                },
+                'filter' => \prokhonenkov\bannerssystem\models\Zone::getTypes()
+            ],
 			[
 				'class' => 'dosamigos\grid\columns\ToggleColumn',
 				'attribute' => 'is_active',

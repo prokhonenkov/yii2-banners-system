@@ -34,6 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'width',
             'height',
+            [
+                'attribute' => 'type',
+                'value' => \yii\helpers\ArrayHelper::getValue($model::getTypes(), $model->type)
+            ],
 			[
 				'attribute' => 'is_active',
 				'value' => BannerHelper::getStatuses()[$model->is_active]

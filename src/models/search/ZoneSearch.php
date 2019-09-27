@@ -17,7 +17,7 @@ class ZoneSearch extends Zone
     public function rules()
     {
         return [
-            [['id', 'width', 'height', 'is_active'], 'integer'],
+            [['id', 'width', 'height', 'is_active', 'type'], 'integer'],
             [['title'], 'safe'],
         ];
     }
@@ -61,6 +61,7 @@ class ZoneSearch extends Zone
             'id' => $this->id,
             'width' => $this->width,
             'height' => $this->height,
+            'type' => $this->type,
             'is_active' => $this->is_active,
         ]);
 
