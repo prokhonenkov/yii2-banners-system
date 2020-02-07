@@ -41,8 +41,10 @@ class BannerZone implements BannerZoneInterface
 				'class' => 'veil'
 			]),
 			ArrayHelper::merge($options, [
-				'id' => BannerHelper::PREFIX_BANNER_ZONE . $id,
-				'class' => 'banner-system hidden ' . ($options['class'] ?? null)
+				'class' => sprintf('%s banner-system hidden %s',
+					(BannerHelper::PREFIX_BANNER_ZONE . $id),
+					($options['class'] ?? null)
+				)
 			]));
 	}
 

@@ -8,9 +8,8 @@ class BannerSystem {
 
     insertBanners() {
         const self = this;
-        console.log(this.banners);
         $.each(this.banners, function(key, value) {
-            const banerPlace = $('#' + key);
+            const banerPlace = $('.' + key);
 
             banerPlace.removeClass('hidden')
                 .css('height', value.height)
