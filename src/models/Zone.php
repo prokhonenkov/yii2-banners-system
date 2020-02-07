@@ -2,6 +2,7 @@
 
 namespace prokhonenkov\bannerssystem\models;
 
+use prokhonenkov\bannerssystem\helpers\BannerHelper;
 use Yii;
 
 /**
@@ -14,7 +15,7 @@ use Yii;
  * @property int $is_active
  * @property int $type
  *
- * @property Banners[] $banners
+ * @property Banner[] $banners
  */
 class Zone extends \yii\db\ActiveRecord
 {
@@ -61,12 +62,13 @@ class Zone extends \yii\db\ActiveRecord
      */
     public function getBanners()
     {
-        return $this->hasMany(Banners::className(), ['zone_id' => 'id']);
+        return $this->hasMany(Banner::className(), ['zone_id' => 'id']);
     }
 
     public static function getForDropDown()
 	{
 		return self::find()
+			->andWhere(['is_active' => BannerHelper::STATUS_ACTIVE])
 			->select('title')
 			->indexBy('id')
 			->column();

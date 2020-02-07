@@ -28,7 +28,6 @@ return [
 	'Banners area' => 'Банерное место',
 	'Updated At' => 'Дата последнего обновления',
 	'Created At' => 'Дата создания',
-	'Delete' => 'Удалить',
 	'Url' => 'Урл',
 	'Show on internal pages' => 'Показывать на внутренних страницах',
 	'Title' => 'Название',
@@ -60,5 +59,8 @@ return [
 	'The archive is missing index.html' => 'В архиве отсутствует index.html',
 	'Unable to unpack archive' => 'Невозможно распаковать архив',
 	'Statistics' => 'Статистика',
-	'Clicks' => 'Клики'
+	'Clicks' => 'Клики',
+	'Type' => 'Способ вывода',
+	'Rotate' => 'Поочередно',
+	'List' => 'Списком',
 ];

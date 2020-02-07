@@ -195,7 +195,11 @@ class BannerHelper
 
 					$options = [
 						'id' => $banner->getId(),
-						'html' => ($data[self::PREFIX_BANNER_ZONE . $banner->getZoneId()]['html'] ?? '') . str_replace(['<', '>'], ['&lt;', '&gt;'], $banner->getHtml()),
+						'html' => str_replace(['<', '>'], ['&lt;', '&gt;'],
+							str_replace(['<p>', '</p>'], '',
+								$banner->getHtml()
+							)
+						),
 						'redirectUrl' => $banner->getRedirectUrl(),
 					];
 
