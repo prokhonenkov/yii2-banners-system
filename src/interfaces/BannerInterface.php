@@ -49,7 +49,7 @@ interface BannerInterface
 	 * @param array $ids
 	 */
 
-	public static function setViews(array $ids): void ;
+	public static function setViews(int ...$ids): void ;
 
 	/**
 	 * @param int $id

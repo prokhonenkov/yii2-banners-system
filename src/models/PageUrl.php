@@ -58,7 +58,13 @@ class PageUrl extends \yii\db\ActiveRecord implements BannerUrlInterface
         return $this->hasOne(Banner::className(), ['id' => 'banner_id']);
     }
 
-    public static function batchUpdate($id, $data): bool
+	/**
+	 * @param int $id
+	 * @param array $data
+	 * @return bool
+	 * @throws \yii\db\Exception
+	 */
+    public static function batchUpdate(int $id, array $data): bool
 	{
 		$transaction = \Yii::$app->db->beginTransaction();
 

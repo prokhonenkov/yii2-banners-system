@@ -78,7 +78,7 @@ class BannerSystemBehavior extends Behavior
 				}
 			}
 
-			Banner::setViews($ids);
+			Banner::setViews(...$ids);
 		});
 	}
 }

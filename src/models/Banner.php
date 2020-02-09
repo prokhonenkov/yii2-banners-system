@@ -161,7 +161,7 @@ class Banner extends \yii\db\ActiveRecord implements BannerInterface
 	 * @param array $ids
 	 * @throws \yii\db\Exception
 	 */
-	public static function setViews(array $ids): void
+	public static function setViews(int ...$ids): void
 	{
 		$data = [];
 		foreach ($ids as $id) {

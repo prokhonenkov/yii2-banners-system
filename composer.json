@@ -29,5 +29,10 @@
       "psr-4": {
         "prokhonenkov\\bannerssystem\\": "src"
       }
+    },
+    "require-dev": {
+        "codeception/module-yii2": "^1.1",
+        "codeception/module-asserts": "^1.1",
+        "codeception/module-phpbrowser": "^1.0"
     }
 }

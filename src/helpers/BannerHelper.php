@@ -98,11 +98,11 @@ class BannerHelper
 	}
 
 	/**
-	 * @return bool|mixed|string
+	 * @return string
 	 * @throws InvalidConfigException
 	 * @throws \yii\base\Exception
 	 */
-	public static function getUploadDir()
+	public static function getUploadDir(): string
 	{
 		$uploadDir = \Yii::$app->getModule('bannersSystem')->uploadDir;
 
@@ -120,7 +120,7 @@ class BannerHelper
 	 * @return bool|string
 	 * @throws InvalidConfigException
 	 */
-	public static function getUploadUrl()
+	public static function getUploadUrl(): string
 	{
 		$uploadUrl = \Yii::$app->getModule('bannersSystem')->uploadUrl;
 
@@ -140,16 +140,11 @@ class BannerHelper
 	 */
 	public static function upload(int $zoneId, string $uniqKey): string
 	{
-		$fileInstance = current(UploadedFile::getInstancesByName('file'));
-		if (!$fileInstance instanceof UploadedFile) {
-			throw new \Exception(\Yii::t('banners-system', 'Failed to upload file.'));
-		}
-
-		$path  = self::uplodFile($fileInstance, $uniqKey);
+		$path  = self::uplodFile($uniqKey);
 
 		$bannerZone = Zone::findOne($zoneId);
 		if(!$bannerZone) {
-			throw new Exception(\Yii::t('banners-system', 'Banner area not found.'));
+			throw new \Exception(\Yii::t('banners-system', 'Banner area not found.'));
 		}
 
 		return self::getUploadHtml(
@@ -160,14 +155,18 @@ class BannerHelper
 	}
 
 	/**
-	 * @param $fileInstance
 	 * @param $uniqKey
 	 * @return string|null
 	 * @throws InvalidConfigException
 	 * @throws \yii\base\Exception
 	 */
-	private static function uplodFile($fileInstance, $uniqKey): ?string
+	private static function uplodFile($uniqKey): ?string
 	{
+		$fileInstance = current(UploadedFile::getInstancesByName('file'));
+		if (!$fileInstance instanceof UploadedFile) {
+			throw new \Exception(\Yii::t('banners-system', 'Failed to upload file.'));
+		}
+
 		$dir = self::getUploadDir();
 		FileHelper::createDirectory($dir . DIRECTORY_SEPARATOR . $uniqKey);
 		$name = 'source.' . $fileInstance->getExtension();
