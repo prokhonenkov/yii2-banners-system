@@ -36,7 +36,11 @@ class BannerSystem {
         const self = this;
 
         el.click(function(){
-            $.post( self.url, { id: options.id });
+            let csrfParam = yii.getCsrfParam();
+            let csrfToken = yii.getCsrfToken();
+            let params = { id: options.id};
+            params[csrfParam] = csrfToken;
+            $.post( self.url, params);
             if(options.redirectUrl) {
                 const win = window.open('', 'target="blank"');
                 win.location.assign(options.redirectUrl);

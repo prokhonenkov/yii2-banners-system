@@ -30,13 +30,7 @@ class BannersSystemController extends Controller
 
 	public function beforeAction($action)
 	{
-		if(
-			\Yii::$app->controller->action->id != 'set-click'
-			&& (
-				\Yii::$app->getModule('bannersSystem')->administratorPermissionName
-				&& !\Yii::$app->getUser()->can(\Yii::$app->getModule('bannersSystem')->administratorPermissionName)
-			)
-		) {
+		if(\Yii::$app->controller->action->id != 'set-click' && !\Yii::$app->getModule('bannersSystem')->checkAccess()) {
 			throw new ForbiddenHttpException();
 		}
 

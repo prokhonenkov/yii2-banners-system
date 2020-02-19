@@ -11,30 +11,49 @@ use yii\web\ForbiddenHttpException;
  */
 class BannersSystem extends \yii\base\Module
 {
+	/**
+	 * @var string
+	 */
 	public $layout;
+	/**
+	 * @var array
+	 */
 	public $administratorPermissionName;
+	/**
+	 * @var null|string
+	 */
 	public $uploadDir = null;
+	/**
+	 * @var null|string
+	 */
 	public $uploadUrl = null;
+	/**
+	 * @var array
+	 */
 	public $views = [];
 
-    /**
+	/**
 	 * .
-     * {@inheritdoc}
-     */
-    public $controllerNamespace = 'prokhonenkov\bannerssystem\controllers';
+	 * {@inheritdoc}
+	 */
+	public $controllerNamespace = 'prokhonenkov\bannerssystem\controllers';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function init()
-    {
+	/**
+	 * {@inheritdoc}
+	 */
+	public function init()
+	{
 		parent::init();
+
+		if(!is_null($this->administratorPermissionName) && !is_array($this->administratorPermissionName)) {
+			throw new \InvalidArgumentException('administratorPermissionName mast be array');
+		}
 
 		$this->initRepeater();
 		$this->initViews();
-    }
+	}
 
-	public function initViews()
+	public function initViews(): void
 	{
 		$modelViews = [
 			'banner' => [
@@ -60,7 +79,7 @@ class BannersSystem extends \yii\base\Module
 		}
 	}
 
-	public function initRepeater()
+	public function initRepeater(): void
 	{
 		if (\Yii::$app instanceof \yii\web\Application) {
 			\Yii::$app->getAssetManager()->bundles = [
@@ -69,5 +88,22 @@ class BannersSystem extends \yii\base\Module
 				]
 			];
 		}
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function checkAccess(): bool
+	{
+		if(is_null($this->administratorPermissionName)) {
+			return true;
+		}
+
+		$perms = 0;
+		foreach ($this->administratorPermissionName as $role) {
+			$perms += (int)\Yii::$app->getUser()->can($role);
+		}
+
+		return  $perms > 0;
 	}
 }
