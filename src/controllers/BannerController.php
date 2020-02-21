@@ -32,7 +32,8 @@ class BannerController extends BannersSystemController
 				'class' => ToggleAction::class,
 				'modelClass' =>  Banner::class,
 				'onValue' => 1,
-				'offValue' => 0
+				'offValue' => 0,
+				'scenario' => Banner::SCENARIO_TOGGLE
 			],
 		];
 	}
