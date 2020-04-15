@@ -11,8 +11,4 @@ class FrontendAssetBundle extends AssetBundle
     public $js = [
         'frontend/js/banners-system.js'
     ];
-
-	public $jsOptions = [
-		'type' => 'text/babel'
-	];
 }

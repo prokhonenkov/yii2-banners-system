@@ -49,7 +49,6 @@ class BannersSystem extends \yii\base\Module
 			throw new \InvalidArgumentException('administratorPermissionName mast be array');
 		}
 
-		$this->initRepeater();
 		$this->initViews();
 	}
 
@@ -76,17 +75,6 @@ class BannersSystem extends \yii\base\Module
 					$this->views[$model][$view] = $value;
 				}
 			}
-		}
-	}
-
-	public function initRepeater(): void
-	{
-		if (\Yii::$app instanceof \yii\web\Application) {
-			\Yii::$app->getAssetManager()->bundles = [
-				'relbraun\yii2repeater\RepeaterAsset' => [
-					'basePath' => '/'
-				]
-			];
 		}
 	}
 

@@ -15,6 +15,8 @@ class Bootstrap implements BootstrapInterface
         $app->getUrlManager()->addRules([
         ], true);
         $app->setModule('bannerssystem', 'prokhonenkov\bannerssystem\BannersSystem');
+		$app->setModule('repeater', 'prokhonenkov\repeater\Repeater');
+		$app->bootstrap[] = 'repeater';
     }
 
 	protected function initTranslations(Application $app)

@@ -35,8 +35,6 @@ class BannerSystemBehavior extends Behavior
 
 	public function beforeAction()
 	{
-		$this->owner->getView()->registerJsFile('https://unpkg.com/babel-standalone@6.26.0/babel.min.js', ['position' => View::POS_END]);
-
 		FrontendAssetBundle::register($this->owner->getView());
 
 		$this->owner->getView()->on(View::EVENT_END_PAGE, function () {
@@ -56,16 +54,7 @@ class BannerSystemBehavior extends Behavior
 				'url' => Url::to(['/bannerssystem/banner/set-click'])
 			]);
 
-			$content = ob_get_clean();
-
-			ob_start();
-			echo  strtr($content, [
-				View::PH_BODY_END => sprintf("%s\n%s",
-					View::PH_BODY_END,
-					Html::script('const bannerSystem = new BannerSystem(' . $json . ')', ['type' => 'text/babel'])
-				)]);
-
-			//$this->owner->getView()->registerJs('const bannerSystem = new BannerSystem(' . $json . ')');
+			$this->owner->getView()->registerJs('var bannerSystem = new BannerSystem(' . $json . ')');
 
 			$ids = [];
 			foreach ($banners as $bannerZone) {

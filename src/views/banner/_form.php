@@ -34,18 +34,16 @@ use \prokhonenkov\bannerssystem\helpers\BannerHelper;
                 <div class="panel">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-							<?= \Yii::t('banners-system', 'Show on specified pages only')?>
+							<?= \Yii::t('banners-system', 'Pages to show banner')?>
                         </div>
                         <br>
                             <div class="row">
                                 <div class="col-md-12">
-									<?php echo \prokhonenkov\bannerssystem\widgets\Repeater::widget([
-										'modelView' => '/banner/_url',
-										'appendAction' => \yii\helpers\Url::to(['add-url']),
-										'removeAction' => \yii\helpers\Url::to(['remove-url']),
-										'form' => $form,
-										'models' => $model->urlsList, //The existing sub models
-									]) ?>
+									<?= \prokhonenkov\repeater\widgets\RepeaterWidget::widget([
+										'className' => \prokhonenkov\bannerssystem\models\PageUrl::class,
+										'modelView' => '@app/vendor/prokhonenkov/yii2-banners-system/src/views/banner/_url.php',
+										'models' => $model->urlsList,
+									]);?>
                                </div>
                             </div>
                     </div>

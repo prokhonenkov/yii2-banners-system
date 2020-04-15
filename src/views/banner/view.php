@@ -64,7 +64,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="panel padding10">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><?= \Yii::t('banners-system', 'Show on specified pages only')?></h3>
+                <h3 class="panel-title">
+					<?= \Yii::t('banners-system', 'Pages to show banner')?>
+                </h3>
             </div>
             <br>
             <div class="row">

@@ -1,7 +1,7 @@
-.ab-repeater {
+.vp-repeater {
     padding: 20px;
 }
-.remove {
+.vp-repeater .remove {
     z-index: 100;
     position: absolute;
     right: 0;
@@ -10,24 +10,25 @@
     margin-right: 10px;
     margin-top: 10px;
 }
-.repeater-item {
+.vp-repeater .repeater-item {
     position: relative;
 }
-.new-repeater {
-    float: right;
+
+.vp-repeater .new-item {
+    margin: 10px;
 }
 
-.repeater-content {
+.vp-repeater .repeater-content {
     border-bottom: 1px solid;
     padding: 10px;
     margin: 10px;
 }
 
-.repeater-content table {
+.vp-repeater .repeater-content table {
     width: 100%;
 }
 
-.repeater-content table td{
+.vp-repeater .repeater-content table td{
     width: 50%;
     padding: 10px;
 }
